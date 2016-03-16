@@ -1,0 +1,15 @@
+use warnings;
+use strict;
+use HTML::TreeBuilder::XPath;
+use Data::Dumper;
+
+my @fns = @ARGV;
+
+my $xp = HTML::TreeBuilder::XPath->new;
+foreach my $fn (@fns) {
+    print STDERR $fn, "\n";
+    $xp->parse_file($fn);
+    my @titles = $xp->findnodes('/html/body//div[@class="h2"]');
+    print Dumper(\@titles);
+}
+    
