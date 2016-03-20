@@ -3,9 +3,9 @@ use strict;
 use HTML::TreeBuilder::XPath;
 use Data::Dumper;
 use JSON::PP;
-use HTML::Entities;
+#use HTML::Entities;
 
-binmode STDOUT, ':encoding(UTF-8)';
+#binmode STDOUT, ':encoding(UTF-8)';
 
 my @fns = @ARGV;
 
@@ -65,7 +65,7 @@ foreach my $fn (@fns) {
 	    # remove the part name from the line
 	    foreach ($line->findnodes('span[@class="dpart"]')) { $_->detach };
 
-	    my $line_obj = { part => $part_name, line => decode_entities($line->as_trimmed_text) };
+	    my $line_obj = { part => $part_name, line => $line->as_trimmed_text };
 	    push @parsed_lines, $line_obj;
 
 	}
