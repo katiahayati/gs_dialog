@@ -38,11 +38,10 @@ for fn in fns:
     if title is None:
         sys.stderr.print("No title found in ", fn)
 
-    print(title)
-
+    dialog['title'] = title
+    
     # remove all <span class="dir">....</span> from doc
     stage_directions = xp.xpath('//p/span[@class="dir"]') + xp.xpath('//span[@class="dir"]') 
-    print(stage_directions)
     for sd in stage_directions:
         if sd.getparent() is not None:
             sd.drop_tree()
@@ -67,7 +66,7 @@ for fn in fns:
             for occ in (line.findall('span[@class="dpart"]')):
                 occ.drop_tree()
 
-            line_obj = { 'part': part_name, 'line': as_trimmed_text(line) }
+            line_obj = { 'name': part_name, 'line': as_trimmed_text(line) }
             parsed_lines.append(line_obj)
     else:
         part_rows = xp.xpath('//tr[./td[@class="part"]]')
@@ -85,7 +84,7 @@ for fn in fns:
 	    
             if (not previous_part or part_name != previous_part):
                 if previous_lines:
-                    previous_line_obj = { 'part': previous_part, 'line': " ".join(previous_lines) }
+                    previous_line_obj = { 'name': previous_part, 'line': " ".join(previous_lines) }
                     parsed_lines.append(previous_line_obj)
 
                 previous_lines = []
@@ -95,7 +94,7 @@ for fn in fns:
             previous_lines.append(line)
 	
         if (previous_lines):
-            previous_line_obj = { 'part': previous_part, 'line': " ".join(previous_lines) }
+            previous_line_obj = { 'name': previous_part, 'line': " ".join(previous_lines) }
             parsed_lines.append(previous_line_obj)
 
     dialog['lines'] = parsed_lines
@@ -103,7 +102,7 @@ for fn in fns:
     
 #    print Dumper(\@lines);
 
-print(dialogs)
+print("var dialogs = ", dialogs)
 '''
 #print Dumper(\@dialogs);
 print encode_json(\@dialogs);
