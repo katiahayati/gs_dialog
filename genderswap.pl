@@ -20,6 +20,8 @@ my %replacements = (
     lass => 'lad',
     man => 'woman',
     woman => 'man',
+    men => 'women',
+    women => 'men',
     wife => 'husband',
     husband => 'wife',
     papa => 'mama',
@@ -31,6 +33,10 @@ my %replacements = (
     daughters => 'sons',
     son => 'daughter',
     daughter => 'son',
+    boy => 'girl',
+    girl => 'boy',
+    boys => 'girls',
+    girls => 'boys',
     );
 
 sub is_uc {
